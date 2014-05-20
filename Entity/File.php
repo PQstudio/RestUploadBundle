@@ -3,6 +3,8 @@
 namespace PQstudio\RestUploadBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class File
 {
+    use TimestampableEntity;
 
     /**
      * @ORM\Id
