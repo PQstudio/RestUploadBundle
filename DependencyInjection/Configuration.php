@@ -23,11 +23,24 @@ class Configuration implements ConfigurationInterface
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
-        //$rootNode
-            //->children()
-            //->scalarNode('limit')->cannotBeEmpty()->defaultValue('25')->end()
-            //->scalarNode('offset')->cannotBeEmpty()->defaultValue('0')->end()
-        //->end();
+        $rootNode
+            ->children()
+            ->arrayNode('types')
+                ->prototype('array')
+                    ->children()
+                        ->arrayNode('mimeTypes')
+                            ->beforeNormalization()->ifString()->then(function($v) { return preg_split('/\s*,\s*/', $v); })->end()
+                            ->useAttributeAsKey('name')
+                            ->prototype('scalar')->end()
+                        ->end()
+                        ->scalarNode('maxSize')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ->end();
 
         return $treeBuilder;
     }

@@ -1,3 +1,12 @@
-#parameters:
+parameters:
+    pq.rest_upload.uploader.class: PQstudio\RestUploadBundle\Uploader\Uploader
+    pq.rest_upload.utility.token_generator.class: PQstudio\RestUploadBundle\Utility\TokenGenerator
 
-#services:
+services:
+    pq.rest_upload.uploader:
+        class: %pq.rest_upload.uploader.class%
+        arguments:
+            filesystem: @tmpfiles_filesystem
+
+    pq.rest_upload.utility.token_generator:
+        class: %pq.rest_upload.utility.token_generator.class%

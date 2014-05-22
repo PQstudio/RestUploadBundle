@@ -1,0 +1,3 @@
+pq_file:
+    type:     rest
+    resource: PQstudio\RestUploadBundle\Controller\FileController

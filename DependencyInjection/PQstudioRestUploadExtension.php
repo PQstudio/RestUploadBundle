@@ -22,7 +22,15 @@ class PQstudioRestUploadExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('pq.rest_upload.config', $config);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('repositories.yml');
+    }
+
+    public function getAlias()
+    {
+        return 'pq_rest_upload';
     }
 }

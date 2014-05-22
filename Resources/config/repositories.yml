@@ -1,0 +1,22 @@
+parameters:
+    file_repository.doctrine.bare.class: PQstudio\RestUploadBundle\Repository\File\BareDoctrineFileRepository
+    file_repository.doctrine.class: PQstudio\RestUploadBundle\Repository\File\DoctrineFileRepository
+    file_entity: PQstudio\RestUploadBundle\Entity\File
+
+services:
+# File repository
+    file_repository.doctrine:
+        class: %file_repository.doctrine.class%
+        arguments: 
+            em: "@doctrine.orm.entity_manager"
+            repo: "@file_repository.doctrine.bare"
+            acl: "@pq.acl"
+
+    file_repository:
+        alias: file_repository.doctrine
+
+    file_repository.doctrine.bare:
+        class: %file_repository.doctrine.bare.class%
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: "getRepository"
+        arguments: [%file_entity%]
